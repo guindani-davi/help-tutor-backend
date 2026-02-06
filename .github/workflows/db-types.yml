@@ -1,0 +1,22 @@
+name: DB Types
+on:
+  pull_request:
+  workflow_dispatch:
+jobs:
+  db-types-check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: supabase/setup-cli@v1
+        with:
+          version: latest
+      - name: Start Supabase
+        run: supabase start
+      - name: Generate Types and Verify No Changes
+        run: |
+          supabase gen types typescript --local > src/database/types.ts
+          if ! git diff --ignore-space-at-eol --exit-code --quiet src/database/types.ts; then
+            echo "Detected uncommitted changes after build. See status below:"
+            git diff
+            exit 1
+          fi
