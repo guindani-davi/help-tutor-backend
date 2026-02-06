@@ -29,7 +29,6 @@
     "@nestjs/mapped-types": "*",
     "@nestjs/platform-express": "^11.0.1",
     "@supabase/supabase-js": "^2.93.2",
-    "@vercel/related-projects": "^1.0.0",
     "bcrypt": "^6.0.0",
     "class-transformer": "^0.5.1",
     "class-validator": "^0.14.3",
@@ -76,8 +75,5 @@
     ],
     "coverageDirectory": "../coverage",
     "testEnvironment": "node"
-  },
-  "lint-staged": {
-    "*.ts": "npm run format"
   }
 }

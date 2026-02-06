@@ -19,7 +19,6 @@ import {
 } from '../../dtos/get-user.dto';
 import { IUsersService } from '../../service/i.users.service';
 import { IUsersController } from '../i.users.controller';
-import { relatedProjects } from '@vercel/related-projects';
 
 @Controller('users')
 export class UsersController implements IUsersController {
@@ -66,15 +65,6 @@ export class UsersController implements IUsersController {
     @Param() params: RequestGetUserByEmailDTO,
     @Res() response: Response<ResponseGetUserDTO | Record<string, never>>,
   ): Promise<void> {
-    const hasRelatedProjects = process.env['VERCEL_RELATED_PROJECTS'];
-
-    console.log('Related projects from config:', hasRelatedProjects);
-
-    if (hasRelatedProjects) {
-      const projects = relatedProjects();
-      console.log('Related projects:', projects);
-    }
-
     const returnedUser = await this.userService.getUserByEmail(params);
 
     if (!returnedUser) {
